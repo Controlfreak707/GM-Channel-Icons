@@ -7,10 +7,14 @@ import * as settingsPage from "@goosemod/settings";
 let settings = {
   github: true,
   offTopic: true,
+  info: true,
+  faq: true,
 };
 
 let styleGithub;
 let styleOffTopic;
+let styleInfo;
+let styleFaq;
 
 function updateSetting(setting, value = settings[setting]) {
   try {
@@ -24,7 +28,7 @@ function updateSetting(setting, value = settings[setting]) {
 
         if (value) {
           styleGithub = document.createElement("style");
-          styleGithub.textContent = `[aria-label="github (text channel)"] > div > svg > path, [aria-label="github (announcement channel)"] > div > svg > path, [aria-label="unread, github (text channel)"] > div > svg > path, [aria-label="unread, github (announcement channel)"] > div > svg > path { d: path("M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"); transform: scale(1.5);}`;
+          styleGithub.textContent = `[aria-label="github (text channel)"] > div > svg > path, [aria-label="github (announcement channel)"] > div > svg > path, [aria-label="unread, github (text channel)"] > div > svg > path, [aria-label="unread, github (announcement channel)"] > div > svg > path { d: path("M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"); transform: scale(1.5); }`;
           document.head.appendChild(styleGithub);
         }
         break;
@@ -35,8 +39,30 @@ function updateSetting(setting, value = settings[setting]) {
 
         if (value) {
           styleOffTopic = document.createElement("style");
-          styleOffTopic.textContent = `[aria-label="offtopic (text channel)"] > div > svg > path, [aria-label="off-topic (text channel)"] > div > svg > path, [aria-label="unread, offtopic (text channel)"] > div > svg > path, [aria-label="unread, off-topic (text channel)"] > div > svg > path { d: path("M4.79805 3C3.80445 3 2.99805 3.8055 2.99805 4.8V15.6C2.99805 16.5936 3.80445 17.4 4.79805 17.4H7.49805V21L11.098 17.4H19.198C20.1925 17.4 20.998 16.5936 20.998 15.6V4.8C20.998 3.8055 20.1925 3 19.198 3H4.79805Z");transform: scale(1.1);}`;
+          styleOffTopic.textContent = `[aria-label="offtopic (text channel)"] > div > svg > path, [aria-label="off-topic (text channel)"] > div > svg > path, [aria-label="unread, offtopic (text channel)"] > div > svg > path, [aria-label="unread, off-topic (text channel)"] > div > svg > path { d: path("M4.79805 3C3.80445 3 2.99805 3.8055 2.99805 4.8V15.6C2.99805 16.5936 3.80445 17.4 4.79805 17.4H7.49805V21L11.098 17.4H19.198C20.1925 17.4 20.998 16.5936 20.998 15.6V4.8C20.998 3.8055 20.1925 3 19.198 3H4.79805Z");transform: scale(1.1); }`;
           document.head.appendChild(styleOffTopic);
+        }
+        break;
+      case "info":
+        try {
+          styleInfo.remove();
+        } catch {}
+
+        if (value) {
+          styleInfo = document.createElement("style");
+          styleInfo.textContent = `[aria-label="info (text channel)"] > div > svg > path, [aria-label="unread, info (text channel)"] > div > svg > path, [aria-label="useful (text channel)"] > div > svg > path, [aria-label="unread, useful (text channel)"] > div > svg > path { d: path("M0 0h24v24H0z");d: path("M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"); }`;
+          document.head.appendChild(styleInfo);
+        }
+        break;
+      case "faq":
+        try {
+          styleFaq.remove();
+        } catch {}
+
+        if (value) {
+          styleFaq = document.createElement("style");
+          styleFaq.textContent = `[aria-label="faq (text channel)"] > div > svg > path, [aria-label="unread, faq (text channel)"] > div > svg > path { d: path("M0 0h24v24H0z");d: path("M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"); }`;
+          document.head.appendChild(styleFaq);
         }
         break;
 
@@ -82,6 +108,18 @@ export default {
           text: "Off-Topic Channels",
           onToggle: (value) => updateSetting("offTopic", value),
           isToggled: () => settings.offTopic,
+        },
+        {
+          type: "toggle",
+          text: "Info Channels",
+          onToggle: (value) => updateSetting("info", value),
+          isToggled: () => settings.info,
+        },
+        {
+          type: "toggle",
+          text: "FAQ Channels",
+          onToggle: (value) => updateSetting("faq", value),
+          isToggled: () => settings.faq,
         },
       ]);
     },
