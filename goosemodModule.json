@@ -5,5 +5,8 @@
   "name": "Channel Icons",
   "authors": ["441384103946878987"],
   "description": "Gives some channels unique icons depending on their name.",
+  "images": [
+    "https://raw.githubusercontent.com/Controlfreak707/GM-Channel-Icons/main/images/image-a.png"
+  ],
   "tags": ["ui"]
 }
