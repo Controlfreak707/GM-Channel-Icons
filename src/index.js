@@ -10,6 +10,7 @@ let settings = {
   info: true,
   help: true,
   starboard: true,
+  gaming: true,
 };
 
 let styleGithub;
@@ -17,6 +18,7 @@ let styleOffTopic;
 let styleInfo;
 let styleHelp;
 let styleStarboard;
+let styleGaming;
 
 function updateSetting(setting, value = settings[setting]) {
   try {
@@ -76,6 +78,17 @@ function updateSetting(setting, value = settings[setting]) {
           styleStarboard = document.createElement("style");
           styleStarboard.textContent = `[aria-label="support (text channel)"] > div > svg > path, [aria-label="unread, support (text channel)"] > div > svg > path { d: path("M 21.924 8.61789 C 21.77 8.24489 21.404 8.00089 21 8.00089 H 15.618 L 12.894 2.55389 C 12.555 1.87689 11.444 1.87689 11.105 2.55389 L 8.38199 8.00089 H 2.99999 C 2.59599 8.00089 2.22999 8.24489 2.07599 8.61789 C 1.92199 8.99089 2.00699 9.42289 2.29299 9.70789 L 6.87699 14.2919 L 5.03899 20.7269 C 4.92399 21.1299 5.07199 21.5619 5.40999 21.8089 C 5.74999 22.0569 6.20699 22.0659 6.55399 21.8329 L 12 18.2029 L 17.445 21.8329 C 17.613 21.9449 17.806 22.0009 18 22.0009 C 18.207 22.0009 18.414 21.9369 18.59 21.8089 C 18.928 21.5619 19.076 21.1299 18.961 20.7269 L 17.123 14.2919 L 21.707 9.70789 C 21.993 9.42289 22.078 8.99089 21.924 8.61789 Z"); }`;
           document.head.appendChild(styleStarboard);
+        }
+        break;
+      case "gaming":
+        try {
+          styleGaming.remove();
+        } catch {}
+
+        if (value) {
+          styleGaming = document.createElement("style");
+          styleGaming.textContent = `[aria-label="gaming (text channel)"] > div > svg > path, [aria-label="unread, gaming (text channel)"] > div > svg > path, [aria-label="games (text channel)"] > div > svg > path, [aria-label="unread, games (text channel)"] > div > svg > path, [aria-label="video-games (text channel)"] > div > svg > path, [aria-label="unread, video-games (text channel)"] > div > svg > path { d: path("M 5.79336 5 L 18.2066 5 C 19.7806 5 21.0869 6.21634 21.199 7.78626 L 21.8575 17.0051 C 21.9308 18.031 21.1586 18.922 20.1327 18.9953 C 20.0885 18.9984 20.0443 19 20 19 C 18.8246 19 17.8 18.2 17.5149 17.0597 L 17 15 L 7 15 L 6.48507 17.0597 C 6.19999 18.2 5.17541 19 4 19 C 2.97151 19 2.13776 18.1662 2.13776 17.1378 C 2.13776 17.0935 2.13934 17.0492 2.14249 17.0051 L 2.80098 7.78626 C 2.91312 6.21634 4.21944 5 5.79336 5 Z M 14.5 10 C 15.3284 10 16 9.32843 16 8.5 C 16 7.67157 15.3284 7 14.5 7 C 13.6716 7 13 7.67157 13 8.5 C 13 9.32843 13.6716 10 14.5 10 Z M 18.5 13 C 19.3284 13 20 12.3284 20 11.5 C 20 10.6716 19.3284 10 18.5 10 C 17.6716 10 17 10.6716 17 11.5 C 17 12.3284 17.6716 13 18.5 13 Z M 6 9 L 4 9 L 4 11 L 6 11 L 6 13 L 8 13 L 8 11 L 10 11 L 10 9 L 8 9 L 8 7 L 6 7 L 6 9 Z"); }`;
+          document.head.appendChild(styleGaming);
         }
         break;
 
@@ -139,6 +152,12 @@ export default {
           text: "Starboard Channels",
           onToggle: (value) => updateSetting("starboard", value),
           isToggled: () => settings.starboard,
+        },
+        {
+          type: "toggle",
+          text: "Gaming Channels",
+          onToggle: (value) => updateSetting("gaming", value),
+          isToggled: () => settings.gaming,
         },
       ]);
     },
