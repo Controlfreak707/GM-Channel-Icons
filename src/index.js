@@ -11,6 +11,7 @@ let settings = {
   help: true,
   starboard: true,
   gaming: true,
+  programming: true,
 };
 
 let styleGithub;
@@ -19,6 +20,7 @@ let styleInfo;
 let styleHelp;
 let styleStarboard;
 let styleGaming;
+let styleProgramming;
 
 function updateSetting(setting, value = settings[setting]) {
   try {
@@ -91,6 +93,17 @@ function updateSetting(setting, value = settings[setting]) {
           document.head.appendChild(styleGaming);
         }
         break;
+      case "programming":
+        try {
+          styleProgramming.remove();
+        } catch {}
+
+        if (value) {
+          styleProgramming = document.createElement("style");
+          styleProgramming.textContent = `[aria-label="programming (text channel)"] > div > svg > path, [aria-label="unread, programming (text channel)"] > div > svg > path, [aria-label="coding (text channel)"] > div > svg > path, [aria-label="unread, coding (text channel)"] > div > svg > path { d: path("M0 0h24v24H0V0z");d: path("M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"); }`;
+          document.head.appendChild(styleProgramming);
+        }
+        break;
 
       default:
         showToast(`Setting "${setting}" not found.`, {
@@ -132,18 +145,21 @@ export default {
         {
           type: "toggle",
           text: "Off-Topic Channels",
+          subtext: 'Includes channels named "off-topic" and "offtopic".',
           onToggle: (value) => updateSetting("offTopic", value),
           isToggled: () => settings.offTopic,
         },
         {
           type: "toggle",
           text: "Info Channels",
+          subtext: 'Includes channels named "info" and "useful".',
           onToggle: (value) => updateSetting("info", value),
           isToggled: () => settings.info,
         },
         {
           type: "toggle",
-          text: "Help & FAQ Channels",
+          text: "Help Channels",
+          subtext: 'Includes channels named "help", "faq", and "support".',
           onToggle: (value) => updateSetting("help", value),
           isToggled: () => settings.help,
         },
@@ -156,8 +172,17 @@ export default {
         {
           type: "toggle",
           text: "Gaming Channels",
+          subtext:
+            'Includes channels named "gaming", "games", and "video-games".',
           onToggle: (value) => updateSetting("gaming", value),
           isToggled: () => settings.gaming,
+        },
+        {
+          type: "toggle",
+          text: "Programming Channels",
+          subtext: 'Includes channels named "programming" and "coding".',
+          onToggle: (value) => updateSetting("programming", value),
+          isToggled: () => settings.programming,
         },
       ]);
     },
